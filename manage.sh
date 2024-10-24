@@ -39,13 +39,9 @@ fi
 # Hacer commit con la información del módulo
 echo "All tests passed for module: $MODULE_PATH. Preparing to commit and push."
 
-# Información adicional útil para el mensaje de commit
-AUTHOR=$(git config user.name)
-HOSTNAME=$(hostname)
-
 # Realizar el commit y el push
 git add .
-COMMIT_MESSAGE="Module: $MODULE_PATH | Date: $DATE | Author: $AUTHOR | Host: $HOSTNAME"
+COMMIT_MESSAGE="Updated module: $MODULE_PATH | Date: $DATE"
 git commit -m "$COMMIT_MESSAGE"
 
 # Hacer push al branch actual

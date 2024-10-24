@@ -8,3 +8,5 @@ resource "helm_release" "packages" {
   values     = [
     "${file(each.value.values_file)}"]
 }
+
+
