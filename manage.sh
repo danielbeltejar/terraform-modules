@@ -23,8 +23,8 @@ echo "Running tests for module: $MODULE_PATH"
 
 # Ejecutar el script que realiza los tests (test-modules.sh)
 # Asegúrate de que el script de tests esté en la raíz del repo
-if [ -f "./test-modules.sh" ]; then
-    ./test-modules.sh "$MODULE_PATH"
+if [ -f "./test.sh" ]; then
+    ./test.sh "$MODULE_PATH"
 
     # Verificar si los tests pasaron
     if [ $? -ne 0 ]; then
@@ -32,7 +32,7 @@ if [ -f "./test-modules.sh" ]; then
         exit 1
     fi
 else
-    echo "Error: test-modules.sh script not found."
+    echo "Error: test.sh script not found."
     exit 1
 fi
 
