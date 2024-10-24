@@ -4,7 +4,7 @@ resource "kubernetes_namespace" "namespace" {
   metadata {
     name = each.value.name
     labels = {
-      "automount_service_account"     = tostring(each.value.automount_service_account)
+      "disable_automount_service_account"     = tostring(each.value.disable_automount_service_account)
     }
   }
 
@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "namespace" {
 }
 
 resource "kubernetes_service_account" "default_service_account" {
-  for_each = { for ns in local.namespaces_with_defaults : ns.name => ns if ns.automount_service_account }
+  for_each = { for ns in local.disable_automount_service_account : ns.name => ns if ns.automount_service_account }
 
   metadata {
     name      = "default"

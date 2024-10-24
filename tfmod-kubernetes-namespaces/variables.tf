@@ -2,7 +2,7 @@ variable "namespaces" {
   description = "List of namespaces with their names and automount_service_account status."
   type = list(object({
     name    = string
-    automount_service_account = optional(bool, false)
+    disable_automount_service_account = optional(bool, true)
   }))
   validation {
     condition = length(var.namespaces) > 0
