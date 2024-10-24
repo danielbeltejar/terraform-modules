@@ -39,9 +39,13 @@ fi
 # Hacer commit con la información del módulo
 echo "All tests passed for module: $MODULE_PATH. Preparing to commit and push."
 
+# Remover cualquier "/" en el nombre del módulo
+MODULE_NAME=$(basename "$MODULE_PATH")
+
 # Realizar el commit y el push
 git add $MODULE_PATH
-COMMIT_MESSAGE="Updated module: $MODULE_PATH | Date: $DATE"
+
+COMMIT_MESSAGE="Updated module: $MODULE_NAME | Date: $DATE"
 git commit -m "$COMMIT_MESSAGE"
 
 # Hacer push al branch actual
