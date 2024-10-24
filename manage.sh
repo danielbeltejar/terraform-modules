@@ -40,7 +40,7 @@ fi
 echo "All tests passed for module: $MODULE_PATH. Preparing to commit and push."
 
 # Realizar el commit y el push
-git add .
+git add $MODULE_PATH
 COMMIT_MESSAGE="Updated module: $MODULE_PATH | Date: $DATE"
 git commit -m "$COMMIT_MESSAGE"
 
