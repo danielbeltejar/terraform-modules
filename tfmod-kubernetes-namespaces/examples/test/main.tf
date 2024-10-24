@@ -4,10 +4,10 @@ module "kubernetes_namespaces_test" {
   namespaces = [
     {
       name    = "test-sa-automount"
+      automount_service_account = true
     },
     {
       name    = "test"
-      automount_service_account = false
     }
   ]
 }
