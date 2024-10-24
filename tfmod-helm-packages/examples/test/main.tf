@@ -12,14 +12,16 @@ module "helm_packages" {
   helm_charts = [
     {
       name        = "nginx"
-      chart       = "nginx-stable/nginx-ingress"
+      repository  = "nginx-stable/nginx-ingress"
+      chart       = "nginx"
       namespace   = "nginx"
       version     = "1.41.3"
       values_file = "./test-values.yaml"
     },
     {
       name        = "longhorn"
-      chart       = "longhorn/longhorn"
+      repository  = "longhorn/longhorn"
+      chart       = "longhorn"
       namespace   = "longhorn-system"
       version     = "1.4.0"
       values_file = "./test-values.yaml"
