@@ -33,6 +33,7 @@ test_module() {
   terraform validate
   if [ $? -ne 0 ]; then
     echo "Validation failed for $module_name. Aborting..."
+    exit 1
     return
   fi
 
@@ -42,6 +43,7 @@ test_module() {
     echo "Plan successfully created for $module_name."
   else
     echo "Terraform plan failed for $module_name."
+    exit 1
   fi
 
   # Vuelve a la raíz del repositorio

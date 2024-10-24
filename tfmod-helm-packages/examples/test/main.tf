@@ -22,7 +22,7 @@ module "helm_packages" {
       chart       = "longhorn/longhorn"
       namespace   = "longhorn-system"
       version     = "1.4.0"
-      values_file = "./test-values.yamls"
+      values_file = "./test-values.yaml"
     }
   ]
 }
