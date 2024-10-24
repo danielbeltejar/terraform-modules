@@ -4,7 +4,6 @@ resource "kubernetes_namespace" "namespace" {
   metadata {
     name = each.value.name
     labels = {
-      "environment" = each.value.name
       "automount_service_account"     = tostring(each.value.automount_service_account)
     }
   }
