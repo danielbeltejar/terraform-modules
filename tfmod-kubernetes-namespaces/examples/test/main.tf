@@ -7,7 +7,7 @@ module "kubernetes_namespaces_test" {
     },
     {
       name    = "test"
-      secured = false
+      automount_service_account = false
     }
   ]
 }

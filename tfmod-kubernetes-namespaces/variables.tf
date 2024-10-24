@@ -1,8 +1,8 @@
 variable "namespaces" {
-  description = "List of namespaces with their names and secured status."
+  description = "List of namespaces with their names and automount_service_account status."
   type = list(object({
     name    = string
-    secured = optional(bool, true)
+    automount_service_account = optional(bool, true)
   }))
   validation {
     condition = length(var.namespaces) > 0

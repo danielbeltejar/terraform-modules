@@ -5,7 +5,7 @@ resource "kubernetes_namespace" "namespace" {
     name = each.value.name
     labels = {
       "environment" = each.value.name
-      "secured"     = tostring(each.value.secured)
+      "automount_service_account"     = tostring(each.value.automount_service_account)
     }
   }
 
@@ -15,7 +15,7 @@ resource "kubernetes_namespace" "namespace" {
 }
 
 resource "kubernetes_service_account" "default_service_account" {
-  for_each = { for ns in local.namespaces_with_defaults : ns.name => ns if ns.secured }
+  for_each = { for ns in local.namespaces_with_defaults : ns.name => ns if ns.automount_service_account }
 
   metadata {
     name      = "default"
