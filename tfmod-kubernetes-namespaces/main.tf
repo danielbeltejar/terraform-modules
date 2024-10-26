@@ -13,7 +13,7 @@ resource "kubernetes_namespace" "namespace" {
   }
 }
 
-resource "kubernetes_service_account" "default_service_account" {
+resource "kubernetes_default_service_account" "default_service_account" {
   for_each = { for ns in local.disable_automount_service_account : ns.name => ns if ns.automount_service_account }
 
   metadata {
