@@ -12,6 +12,7 @@ variable "helm_charts" {
     chart       = string
     version     = string
     values_file = string
+    create_namespace = optional(string, true)
   }))
   validation {
     condition     = length(var.helm_charts) > 0

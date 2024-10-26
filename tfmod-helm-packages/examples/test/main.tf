@@ -25,6 +25,7 @@ module "helm_packages" {
       namespace   = "longhorn-system"
       version     = "1.4.0"
       values_file = "./test-values.yaml"
+      create_namespace = false
     }
   ]
 }
