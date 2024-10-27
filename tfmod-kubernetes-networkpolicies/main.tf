@@ -14,9 +14,6 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: ingress-nginx
   egress:
-    - fromEndpoints:  
-        - matchLabels:
-            "app": "apigw"
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
@@ -46,7 +43,6 @@ spec:
     - fromEndpoints:
         - matchLabels:
             "kubernetes.io/metadata.name": "${each.value.front_namespace}" 
-            "app": "apigw"
   egress:
     - toFQDNs:
 ${local.fqdn_entries[each.key]}
