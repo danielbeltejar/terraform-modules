@@ -8,16 +8,13 @@ metadata:
   name: "frontend-policy"
   namespace: "${each.value.front_namespace}"
 spec:
-  endpointSelector: {} # Applies to all pods in the frontend namespace
+  endpointSelector: {} 
   ingress:
     - fromEndpoints:
         - matchLabels:
-            app: "nginx" # Allow traffic from Nginx ingress
+            io.kubernetes.pod.namespace: ingress-nginx
   egress:
-    - {} # Deny all egress traffic by default (no rules defined)
-  policyTypes:
-    - Ingress
-    - Egress
+    - {} 
 EOF
 }
 
@@ -31,18 +28,26 @@ metadata:
   name: "backend-policy"
   namespace: "${each.value.back_namespace}"
 spec:
-  endpointSelector: {} # Applies to all pods in the backend namespace
+  endpointSelector: {} 
   ingress:
     - fromEndpoints:
         - matchLabels:
-            "kubernetes.io/metadata.name": "${each.value.front_namespace}" # Allow traffic only from frontend namespace
+            "kubernetes.io/metadata.name": "${each.value.front_namespace}" 
   egress:
     - toFQDNs:
-${local.fqdn_entries[each.key]} # Inject FQDN entries from allow_back_hosts
-  policyTypes:
-    - Ingress
-    - Egress
-EOF
+${local.fqdn_entries[each.key]} 
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: coredns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: "UDP"
+          rules:
+            dns:
+              - matchPattern: '*'
+              EOF
 }
 
 
