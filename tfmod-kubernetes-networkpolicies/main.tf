@@ -16,12 +16,12 @@ spec:
   egress:
     - fromEndpoints:  
         - matchLabels:
-            app: "apigw"
+            "app": "apigw"
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
             k8s-app: coredns
-      toPorts:
+    - toPorts:
         - ports:
             - port: "53"
               protocol: "UDP"
@@ -46,9 +46,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             "kubernetes.io/metadata.name": "${each.value.front_namespace}" 
-    - fromEndpoints:  
-        - matchLabels:
-            app: "apigw"
+            "app": "apigw"
   egress:
     - toFQDNs:
 ${local.fqdn_entries[each.key]}
@@ -56,7 +54,7 @@ ${local.fqdn_entries[each.key]}
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
             k8s-app: coredns
-      toPorts:
+    - toPorts:
         - ports:
             - port: "53"
               protocol: "UDP"
