@@ -14,7 +14,20 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: ingress-nginx
   egress:
-    - {} 
+    - fromEndpoints:  
+        - matchLabels:
+            app: "apigw"
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: coredns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: "UDP"
+          rules:
+            dns:
+              - matchPattern: '*' # DNS rule allowing all DNS queries
 EOF
 }
 
@@ -33,9 +46,12 @@ spec:
     - fromEndpoints:
         - matchLabels:
             "kubernetes.io/metadata.name": "${each.value.front_namespace}" 
+    - fromEndpoints:  
+        - matchLabels:
+            app: "apigw"
   egress:
     - toFQDNs:
-${local.fqdn_entries[each.key]} 
+${local.fqdn_entries[each.key]}
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
@@ -46,8 +62,8 @@ ${local.fqdn_entries[each.key]}
               protocol: "UDP"
           rules:
             dns:
-              - matchPattern: '*'
-              EOF
+              - matchPattern: '*' # DNS rule allowing all DNS queries
+EOF
 }
 
 
