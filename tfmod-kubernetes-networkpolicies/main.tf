@@ -17,14 +17,13 @@ spec:
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
-            k8s-app: coredns
     - toPorts:
         - ports:
             - port: "53"
               protocol: "UDP"
           rules:
             dns:
-              - matchPattern: '*' # DNS rule allowing all DNS queries
+              - matchPattern: '*'
 EOF
 }
 
@@ -46,17 +45,15 @@ spec:
   egress:
     - toFQDNs:
 ${local.fqdn_entries[each.key]}
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
-            k8s-app: coredns
+    - toEntities:
+        - cluster
     - toPorts:
         - ports:
             - port: "53"
               protocol: "UDP"
           rules:
             dns:
-              - matchPattern: '*' # DNS rule allowing all DNS queries
+              - matchPattern: '*'
 EOF
 }
 
