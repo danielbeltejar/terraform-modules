@@ -17,13 +17,15 @@ spec:
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
+        - matchLabels:
+            io.kubernetes.pod.namespace: "${each.value.back_namespace}"
     - toPorts:
         - ports:
             - port: "53"
               protocol: "UDP"
           rules:
             dns:
-              - matchPattern: '*'
+              - matchPattern: '*' 
 EOF
 }
 
@@ -41,7 +43,7 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            "kubernetes.io/metadata.name": "${each.value.front_namespace}" 
+            "io.kubernetes.pod.namespace": "${each.value.front_namespace}" 
   egress:
     - toFQDNs:
 ${local.fqdn_entries[each.key]}
