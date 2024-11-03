@@ -6,7 +6,11 @@ resource "kubernetes_namespace" "namespace" {
     labels = {
       "disable_automount_service_account"     = tostring(each.value.disable_automount_service_account)
     }
+    annotations = {
+      "pod-security.kubernetes.io/enforce" = "restricted"
+    }
   }
+
 
   lifecycle {
     prevent_destroy = true
