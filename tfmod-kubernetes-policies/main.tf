@@ -27,7 +27,7 @@ resource "kubectl_manifest" "templates_gatekeeper" {
 resource "kubectl_manifest" "constraints_gatekeeper" {
   for_each = var.policies
   yaml_body = <<EOF
-apiVersion: constraints.gatekeeper.sh/v1beta1
+apiVersion: constraints.gatekeeper.sh/v1
 kind: ${each.key}
 metadata:
   name: ${lower(each.value.name)}
@@ -36,7 +36,7 @@ spec:
     kinds:
       - apiGroups: ${each.value.api_groups}
         kinds: ${each.value.kinds}
-    excludedNamespaces: ["kube-*", "*-system", "cert-manager", "ingress-nginx"]
+    excludedNamespaces: ["kube-*", "*-system", "cert-manager", "ingress-nginx", "lab-pihole"]
   EOF
 }
 
