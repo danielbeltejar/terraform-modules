@@ -14,5 +14,4 @@ violation[{"msg": msg}] {
 EOF  
     }
   }
-
 }
