@@ -36,7 +36,7 @@ spec:
     kinds:
       - apiGroups: ${each.value.api_groups}
         kinds: ${each.value.kinds}
-    excludedNamespaces: ["kube-*", "*-system", "cert-manager", "ingress-nginx", "*-pihole"]
+    excludedNamespaces: ["kube-*", "*-system", "cert-manager", "ingress-nginx", "*-pihole", "gatekeeper-system"]
   EOF
 }
 
