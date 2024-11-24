@@ -1,6 +1,7 @@
 variable "kubeconfig" {
   description = "Path to the Kubernetes config file."
   type        = string
+  default = ""
 }
 
 variable "helm_charts" {
