@@ -32,7 +32,7 @@ locals {
       ) : [],
       (!ns_value.create_environments && ns_value.create_segregated) ?
       ["${ns_key}-front", "${ns_key}-back"] :
-      [ns_key]
+      []
     ]) : []
   ])
 }
