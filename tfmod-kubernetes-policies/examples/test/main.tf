@@ -4,6 +4,7 @@ module "policies" {
   policies = {
     "K8sRequireUser" = {
       name   = "pods-must-not-run-as-root"
+      excluded_namespaces  = ["kube-*", "longhorn-system"]
       policy = <<-EOF
 package k8srequireuser
 
