@@ -1,4 +1,4 @@
-variable 'policies' {
+variable "policies" {
   type = map(object({
     name                = string
     policy              = string
