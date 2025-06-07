@@ -1,5 +1,17 @@
+terraform {
+  required_version = ">= 0.13"
+
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
+    }
+  }
+}
+
 resource "kubectl_manifest" "templates_gatekeeper" {
-  for_each  = var.policies
+  for_each = var.policies
+
   yaml_body = yamlencode({
     apiVersion = "templates.gatekeeper.sh/v1"
     kind       = "ConstraintTemplate"
@@ -14,18 +26,17 @@ resource "kubectl_manifest" "templates_gatekeeper" {
           }
         }
       }
-      targets = [
-        {
-          target = "admission.k8s.gatekeeper.sh"
-          rego   = each.value.policy
-        }
-      ]
+      targets = [{
+        target = "admission.k8s.gatekeeper.sh"
+        rego   = each.value.policy
+      }]
     }
   })
 }
 
 resource "kubectl_manifest" "constraints_gatekeeper" {
   for_each = var.policies
+
   yaml_body = yamlencode({
     apiVersion = "constraints.gatekeeper.sh/v1beta1"
     kind       = each.key
@@ -34,27 +45,12 @@ resource "kubectl_manifest" "constraints_gatekeeper" {
     }
     spec = {
       match = {
-        kinds = [
-          {
-            apiGroups = each.value.api_groups
-            kinds     = each.value.kinds
-          }
-        ]
+        kinds = [{
+          apiGroups = each.value.api_groups
+          kinds     = each.value.kinds
+        }]
         excludedNamespaces = each.value.excluded_namespaces
       }
     }
   })
-}
-
-
-
-terraform {
-  required_version = ">= 0.13"
-
-  required_providers {
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
-  }
 }
